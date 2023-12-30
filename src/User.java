@@ -27,8 +27,10 @@ public abstract class User {
         this.cart= new ShoppingCart();
     }
 
-    public abstract void signIn();
-    public void loginUser(Inventory inventory){
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+    public static void loginUser(Inventory inventory){
         boolean test = false;
         int userId = -1;
         String password;
@@ -85,5 +87,57 @@ public abstract class User {
         return password;
     }
     public abstract void userMenu(Inventory inventory);
+    public static void setCurrentUser(User currentUser) {
+        User.currentUser = currentUser;
+    }
+    //get the total price of the shopping cart
+    public double getTotalPrice(){
+        return cart.getTotalPrice();
+    }
+    //checkout the shopping cart
+    public void checkout(){
+        cart.checkout();
+    }
+    //add product to the shopping cart
+    public void addProduct(int barcode ,int quantity, Inventory inventory){
+        cart.addProduct(barcode,quantity,inventory);
+    }
+    //remove a product from the shopping cart
+    public void removeProduct(int barcode,int quantity, Inventory inventory){
+        cart.removeProduct(barcode,quantity,inventory);
+    }
+    //set quantity of a product in the shopping cart
+    public void setQuantity(int barcode, int quantity, Inventory inventory){
+        cart.setQuantity(barcode,quantity,inventory);
+    }
+    //display all products in the shopping cart
+    public void displayCart(){
+        cart.displayCart();
+    }
+    public void displayUser(){
+        System.out.println("User Id : "+userId);
+        System.out.println("User name : "+userName);
+        System.out.println("CIN : "+CIN);
+        System.out.println("Role : "+role);
+    }
+    public static void displayAllUsers(){
+        for (User user: allUsers) {
+            user.displayUser();
+        }
+    }
+    public static void displayAllAdmins(){
+        for (User user: allUsers) {
+            if(user instanceof Admin){
+                user.displayUser();
+            }
+        }
+    }
+    public static void displayAllCustomers(){
+        for (User user: allUsers) {
+            if(user instanceof Customer){
+                user.displayUser();
+            }
+        }
+    }
 
 }

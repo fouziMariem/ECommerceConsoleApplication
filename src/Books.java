@@ -13,8 +13,8 @@ public class Books extends Product{
     //display the product use the displayProduct method from the Product class and adding the category
     @Override
     public void displayProduct(){
-        super.displayProduct();
         System.out.println("Category : Books");
+        super.displayProduct();
         System.out.println("Author :"+author+" Genre :"+genre);
     }
     //update product using the updateProduct method from the Product class and adding the attributes of the books

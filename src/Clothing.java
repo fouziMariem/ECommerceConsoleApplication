@@ -7,7 +7,7 @@ public class Clothing extends Product{
 
     //constructor
 
-    public Clothing(int barcode, String productName, String brand,int price, int size, String color, String material) {
+    public Clothing(int barcode, String productName, String brand,double price, int size, String color, String material) {
         super(barcode, productName, brand, price);
         this.size = size;
         this.color = color;
@@ -17,8 +17,8 @@ public class Clothing extends Product{
     //display the product use the displayProduct method from the Product class and adding the category
     @Override
     public void displayProduct(){
-        super.displayProduct();
         System.out.println("Category : Clothing");
+        super.displayProduct();
         System.out.println("Size :"+size+" Color :"+color+" Material :"+material);
     }
 

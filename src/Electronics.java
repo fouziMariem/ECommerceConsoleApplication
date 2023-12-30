@@ -8,8 +8,9 @@ public class Electronics extends Product{
     //display the product use the displayProduct method from the Product class and adding the category
     @Override
     public void displayProduct(){
-        super.displayProduct();
         System.out.println("Category : Electronics");
+        super.displayProduct();
+
     }
     //update product using the updateProduct method from the Product class and adding the attributes of the clothing
     @Override

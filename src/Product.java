@@ -39,8 +39,14 @@ public abstract class Product {
 
     //update product and deal with the exceptions like the barcode is not an integer or the price is not a double or the product name is empty and retry if an exception is thrown
 
-
-
+    //get brand of the product
+    public String getBrand() {
+        return brand;
+    }
+    //get product name
+    public String getProductName() {
+        return productName;
+    }
     //setters
     public void setBarcode(int barcode) {
         this.barcode = barcode;
@@ -54,13 +60,12 @@ public abstract class Product {
     public void setPrice(double price) {
         this.price = price;
     }
-    public static Product createProduct(){
+    public static Product createProduct(int barcode){
         Scanner scanner = new Scanner(System.in);
         boolean flag = true;
-        int barcode = 0;
         String productName = "";
         String brand = "";
-        int price = 0;
+        double price = 0;
         int size = 0;
         String color = "";
         String material = "";
@@ -81,20 +86,16 @@ public abstract class Product {
                 if(choice!=1 && choice!=2 && choice!=3 && choice!=4){
                     throw new IllegalArgumentException("Invalid choice");
                 }
-                System.out.println("Barcode :");
-                barcode = Integer.parseInt(scanner.nextLine());
-                if(barcode<0){
-                    throw new IllegalArgumentException("Barcode cannot be negative");
-                }
+
                 System.out.println("Product name :");
                 productName = scanner.nextLine();
                 if(productName.isEmpty()){
                     throw new IllegalArgumentException("Product name cannot be empty");
                 }
                 System.out.println("Brand :");
-                brand = scanner.next();
+                brand = scanner.nextLine();
                 System.out.println("Price :");
-                price = Integer.parseInt(scanner.nextLine());
+                price = Double.parseDouble(scanner.nextLine());
                 if(price<0){
                     throw new IllegalArgumentException("Price cannot be negative");
                 }
@@ -174,15 +175,6 @@ public abstract class Product {
             }
         }
     }
-
-//change the create and update product instead than in the inventory in the class product
-    //create product with the switch case
-    //update product using update of each category
-
-
-
-
-
 
 
 }

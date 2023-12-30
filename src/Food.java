@@ -11,8 +11,8 @@ public class Food extends Product{
     //display the product use the displayProduct method from the Product class and adding the category
     @Override
     public void displayProduct(){
-        super.displayProduct();
         System.out.println("Category : Food");
+        super.displayProduct();
         System.out.println("Expiration date :"+expirationDate);
     }
 
