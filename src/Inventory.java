@@ -1,43 +1,54 @@
 import java.util.*;
-
+//class Inventory that contains all the products and manages them
 public class Inventory {
-    private Map<Product,Integer> products;
-    private final Admin defaultAdmin = new Admin(0,"admin","0000");
-    private User currentUser =null;
+    //attributes
+    private Map<Product,Integer> products;//the products in the inventory the key is the product and the value is the quantity
+    private final Admin defaultAdmin = new Admin(0,"admin","0000");//the default admin that set up the inventory
+    private User currentUser =null;//the current user that is using the application
     //constructor
     public Inventory() {
         this.currentUser = defaultAdmin;
         this.products = new HashMap<>();
     }
+    //getters and setters
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
-    }
+    }//set the current user
 
     public User getCurrentUser() {
         return currentUser;
-    }
+    }//get the current user
 
-    // add product to inventory by using the method from the Product class
+    // add product to inventory
     public void addProduct() {
         //if the product is already in the inventory we add the quantiy to the existing quantity else we create a new product and set the quantity
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the barcode of the product");
-        int barcode = Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter the quantity of the product");
-        int quantity = Integer.parseInt(scanner.nextLine());
-        Product product = this.findProduct(barcode);
-        if (product != null) {
-            products.put(product,products.get(product)+quantity);
+        while(true){
+            try {
+                System.out.println("Enter the barcode of the product");
+                int barcode = Integer.parseInt(scanner.nextLine());
+                System.out.println("Enter the quantity of the product");
+                int quantity = Integer.parseInt(scanner.nextLine());
+                Product product = this.findProduct(barcode);
+                if (product != null) {
+                    products.put(product,products.get(product)+quantity);
+                }
+                else{
+                    Product newProduct = Product.createProduct(barcode);
+                    products.put(newProduct,quantity);
+                }
+                break;
+            }
+            catch (Exception e){
+                System.out.println("Invalid input");
+            }
         }
-        else{
-            Product newProduct = Product.createProduct(barcode);
-            products.put(newProduct,quantity);
-        }
+
 
     }
 
-    // remove product from inventory
+    // remove product from inventory by barcode
     public void removeProduct(int barcode) {
         Product product = this.findProduct(barcode);
         if (product != null) {
@@ -47,7 +58,7 @@ public class Inventory {
             System.out.println("Product not found");
         }
     }
-    //reduce the quantity of a product in the inventory
+    //reduce the quantity of a product in the inventory by 1
     public void reduceQuantity(int barcode){
         Product product = this.findProduct(barcode);
         if (product != null) {
@@ -57,6 +68,7 @@ public class Inventory {
             System.out.println("Product not found");
         }
     }
+    //find a product in the inventory by barcode
     public Product findProduct(int barcode){
         for (Map.Entry<Product, Integer> entry : products.entrySet()) {
             if(entry.getKey().getBarcode()==barcode){
@@ -108,12 +120,17 @@ public class Inventory {
             admin=true;
         }
         while(true){
-            System.out.println("Choose the category :");
-            System.out.println("1.Books");
-            System.out.println("2.Clothes");
-            System.out.println("3.Food");
-            System.out.println("4.Electronics");
-            choice = Integer.parseInt(scanner.nextLine());
+            try{
+                System.out.println("Choose the category :");
+                System.out.println("1.Books");
+                System.out.println("2.Clothes");
+                System.out.println("3.Food");
+                System.out.println("4.Electronics");
+                choice = Integer.parseInt(scanner.nextLine());
+            }
+            catch (Exception e){
+                System.out.println("Invalid input, please try again");
+            }
             if(choice ==1 | choice ==2 | choice ==3 | choice ==4){
                 break;
             }
@@ -164,7 +181,7 @@ public class Inventory {
                 break;
         }
     }
-    //search the product by
+    //set the quantity of a product in the inventory
 
     public void setQuantity(int barcode1, int quantity1) {
         Product product = this.findProduct(barcode1);
@@ -175,6 +192,7 @@ public class Inventory {
             System.out.println("Product not found");
         }
     }
+    //update a product in the inventory
     public void updateProduct(int barCode){
         Product product = this.findProduct(barCode);
         if (product != null) {
@@ -185,7 +203,7 @@ public class Inventory {
         }
     }
     //display all products in the inventory with a specific brand
-public void searchByBrand(){
+    public void searchByBrand(){
         //input the brand
         Scanner scanner = new Scanner(System.in);
         String brand = "";
@@ -214,10 +232,18 @@ public void searchByBrand(){
         if(currentUser.getClass().getName().equals("Admin")){
             admin=true;
         }
-        System.out.println("Enter the min price");
-        min = Double.parseDouble(scanner.nextLine());
-        System.out.println("Enter the max price");
-        max = Double.parseDouble(scanner.nextLine());
+        while(true){
+            try{
+                System.out.println("Enter the min price");
+                min = Double.parseDouble(scanner.nextLine());
+                System.out.println("Enter the max price");
+                max = Double.parseDouble(scanner.nextLine());
+                break;
+            }
+            catch (Exception e){
+                System.out.println("Invalid input, please try again");
+            }
+        }
         for (Map.Entry<Product, Integer> entry : products.entrySet()){
             if(entry.getKey().getPrice()>=min & entry.getKey().getPrice()<=max){
                 entry.getKey().displayProduct();

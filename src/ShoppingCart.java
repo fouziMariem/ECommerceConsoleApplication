@@ -1,5 +1,5 @@
 import java.util.*;
-
+//class ShoppingCart
 public class ShoppingCart {
     // Attributes
     private int userId;
@@ -18,10 +18,11 @@ public class ShoppingCart {
     public double getTotalPrice() {
         return totalPrice;
     }
+    //set the discount code
     public static void setDiscountCode(String discountCode) {
         ShoppingCart.discountCode = discountCode;
     }
-
+    //find a product in the cart using the product barcode
     public Product findProductInCart(int barcode) {
         for (Map.Entry<Product, Integer> entry : cart.entrySet()) {
             if (entry.getKey().getBarcode() == barcode) {
@@ -31,7 +32,7 @@ public class ShoppingCart {
         return null;
     }
 
-    // add product to cart using the product barcode
+    // add one product to cart using the product barcode
     public void addProduct(int barcode, Inventory inventory) {
         Product product = inventory.findProduct(barcode);
         if (product != null & inventory.getQuantity(barcode) > 0) {
@@ -48,7 +49,7 @@ public class ShoppingCart {
             System.out.println("Product not found");
         }
     }
-
+    //add a quantity of a product to the cart using the product barcode
     public void addProduct(int barcode, int quantity, Inventory inventory) {
         if (inventory.findProduct(barcode) == null) {
             System.out.println("Product not found");
@@ -74,7 +75,7 @@ public class ShoppingCart {
             System.out.println("Product not found");
         }
     }
-
+    //remove a quantity of a product from the cart using the product barcode
     public void removeProduct(int barcode, int quantity, Inventory inventory) {
         if (this.getQuantity(barcode) < quantity) {
             System.out.println("Not enough quantity");
@@ -120,35 +121,52 @@ public class ShoppingCart {
     }
     //checkout the cart
     public void checkout() {
-        //choose payment method and pay
-        //clear the cart
+        //choose payment method
         Scanner scanner = new Scanner(System.in);
         PaymentStrategy paymentStrategy=null;
-        System.out.println("Choose payment method :");
-        System.out.println("1-Cash");
-        System.out.println("2-Credit card");
-        System.out.println("3-Paypal");
-        System.out.println("4-Check");
-        int choice = Integer.parseInt(scanner.nextLine());
-        while (choice < 1 || choice > 4) {
-            System.out.println("Invalid choice please try again");
-            choice = Integer.parseInt(scanner.nextLine());
+        int choice=0;
+        while(true){
+            try{
+                System.out.println("Choose payment method :");
+                System.out.println("1-Cash");
+                System.out.println("2-Credit card");
+                System.out.println("3-Paypal");
+                System.out.println("4-Check");
+                choice = Integer.parseInt(scanner.nextLine());
+                while (choice < 1 || choice > 4) {
+                    System.out.println("Invalid choice please try again");
+                    choice = Integer.parseInt(scanner.nextLine());
+                }
+                break;
+            }
+            catch(Exception e){
+                System.out.println("Invalid input please try again");
+            }
         }
+
         switch(choice){
             case 1:
                 CashPayment cashPayment = new CashPayment();
                 cashPayment.pay(totalPrice);
                 break;
             case 2:
-                System.out.println("Enter the credit card number");
-                String creditCardNumber = scanner.nextLine();
-                System.out.println("Enter the name on the card");
-                String creditCardName = scanner.nextLine();
-                System.out.println("Enter the expiration date");
-                String expirationDate = scanner.nextLine();
-                System.out.println("Enter the CVV");
-                String CVV = scanner.nextLine();
-                paymentStrategy = new CreditCardPayment(creditCardName,creditCardNumber,expirationDate,CVV);
+                while(true){
+                    try{
+                        System.out.println("Enter the credit card number");
+                        String creditCardNumber = scanner.nextLine();
+                        System.out.println("Enter the name on the card");
+                        String creditCardName = scanner.nextLine();
+                        System.out.println("Enter the expiration date");
+                        String expirationDate = scanner.nextLine();
+                        System.out.println("Enter the CVV");
+                        String CVV = scanner.nextLine();
+                        paymentStrategy = new CreditCardPayment(creditCardName,creditCardNumber,expirationDate,CVV);
+                        break;
+                    }
+                    catch(Exception e){
+                        System.out.println("Invalid input please try again");
+                    }
+                }
                 break;
             case 3:
                 System.out.println("Enter the email");
@@ -171,13 +189,23 @@ public class ShoppingCart {
         }
         //ask if there is a discount code and apply it repeat if the discount code is invalid
         while(true){
-            System.out.println("Do you have a discount code ?");
-            System.out.println("1-Yes");
-            System.out.println("2-No");
-            choice = Integer.parseInt(scanner.nextLine());
-            while (choice < 1 || choice > 2) {
-                System.out.println("Invalid choice please try again");
-                choice = Integer.parseInt(scanner.nextLine());
+            while(true){
+                try{
+                    System.out.println("Do you have a discount code ?");
+                    System.out.println("1-Yes");
+                    System.out.println("2-No");
+                    choice = Integer.parseInt(scanner.nextLine());
+                    while (choice < 1 || choice > 2) {
+                        System.out.println("Invalid choice please try again");
+                        choice = Integer.parseInt(scanner.nextLine());
+                    }
+                    break;
+                }
+                catch(Exception e){
+                    System.out.println("Invalid input please try again");
+
+                }
+
             }
             if(choice==1){
                 System.out.println("Enter the discount code");
@@ -193,29 +221,39 @@ public class ShoppingCart {
             else{
                 break;
             }
+
         }
+
+        //choose shipping method
         while(true){
-            System.out.println("Choose shipping method :");
-            System.out.println("1-Standard shipping");
-            System.out.println("2-Express shipping");
-            choice = Integer.parseInt(scanner.nextLine());
-            while (choice < 1 || choice > 2) {
-                System.out.println("Invalid choice please try again");
+            try{
+                System.out.println("Choose shipping method :");
+                System.out.println("1-Standard shipping");
+                System.out.println("2-Express shipping");
                 choice = Integer.parseInt(scanner.nextLine());
+                while (choice < 1 || choice > 2) {
+                    System.out.println("Invalid choice please try again");
+                    choice = Integer.parseInt(scanner.nextLine());
+                }
+                if(choice==1){
+                    shipping="Standard shipping";
+                    totalPrice+=10;
+                    break;
+                }
+                else{
+                    shipping="Express shipping";
+                    totalPrice+=20;
+                    break;
+                }
             }
-            if(choice==1){
-                shipping="Standard shipping";
-                totalPrice+=10;
-                break;
+            catch(Exception e){
+                System.out.println("Invalid input please try again");
             }
-            else{
-                shipping="Express shipping";
-                totalPrice+=20;
-                break;
-            }
+
         }
+        //create the order
         Order newOrder = new Order(this.userId,this.totalPrice, this.cart, paymentStrategy , shipping);
-        cart.clear();
+        cart.clear();//clear the cart
         totalPrice = 0;
     }
 }

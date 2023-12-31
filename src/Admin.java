@@ -1,14 +1,16 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
+//class Admin extends User
 public class Admin extends User{
+    //has the same attributes as the User class
+    //constructor
     public Admin(int CIN, String userName, String password) {
 
         super(CIN,userName,password,"Admin");
     }
 
 
-
+    //add an admin(you can't sign up as an admin you have to be added by another admin)
     public User addAdmin(){
         User newUser;
         Scanner scanner = new Scanner(System.in);
@@ -22,11 +24,22 @@ public class Admin extends User{
         return newUser;
     }
     //admin menu
-    // add admin
-    // add a product remove a product
-    // display all products
-    // set the quantity of a product
-    // update a product
+    // add product to the inventory
+    // remove product from the inventory
+    // display all products in the inventory
+    // search by category in the inventory
+    // search by brand in the inventory
+    // search by name in the inventory
+    // search by price in the inventory
+    // set the quantity of a product in the inventory
+    // update a product in the inventory
+    // add an admin
+    // set the discount code
+    // display all users
+    // display all customers
+    // display all admins
+    // display orders
+    // logout
     public void userMenu(Inventory inventory){
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -55,10 +68,20 @@ public class Admin extends User{
                     inventory.addProduct();
                     break;
                 case 2:
-                    System.out.println("Enter the barcode of the product you want to remove");
-                    int barcode = scanner.nextInt();
-                    scanner.nextLine();
-                    inventory.reduceQuantity(barcode);
+                    while(true){
+                        try{
+                            System.out.println("Enter the barcode of the product you want to remove");
+                            int barcode = scanner.nextInt();
+                            scanner.nextLine();
+                            inventory.removeProduct(barcode);
+                            break;
+                        }
+                        catch (Exception e){
+                            System.out.println("Invalid barcode");
+                            scanner.nextLine();
+                        }
+
+                    }
                     break;
                 case 3:
                     inventory.displayAllProducts();
@@ -76,19 +99,40 @@ public class Admin extends User{
                     inventory.searchByPrice();
                     break;
                 case 8:
-                    System.out.println("Enter the barcode of the product you want to set the quantity of");
-                    int barcode1 = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.println("Enter the quantity");
-                    int quantity1 = scanner.nextInt();
-                    scanner.nextLine();
-                    inventory.setQuantity(barcode1,quantity1);
+                    while(true){
+                        try{
+                            System.out.println("Enter the barcode of the product you want to set the quantity of");
+                            int barcode1 = scanner.nextInt();
+                            scanner.nextLine();
+                            System.out.println("Enter the quantity");
+                            int quantity1 = scanner.nextInt();
+                            scanner.nextLine();
+                            inventory.setQuantity(barcode1,quantity1);
+                            break;
+                        }
+                        catch (Exception e){
+                            System.out.println("Invalid barcode");
+                            scanner.nextLine();
+                        }
+
+                    }
                     break;
+
                 case 9:
-                    System.out.println("Enter the barcode of the product you want to update");
-                    int barcode2 = scanner.nextInt();
-                    scanner.nextLine();
-                    inventory.updateProduct(barcode2);
+                    while(true){
+                        try{
+                            System.out.println("Enter the barcode of the product you want to update");
+                            int barcode2 = scanner.nextInt();
+                            scanner.nextLine();
+                            inventory.updateProduct(barcode2);
+                            break;
+                        }
+                        catch (Exception e){
+                            System.out.println("Invalid barcode");
+                            scanner.nextLine();
+                        }
+
+                    }
                     break;
                 case 10:
                     User newUser=this.addAdmin();

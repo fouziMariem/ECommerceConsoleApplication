@@ -1,9 +1,11 @@
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.InputMismatchException;
-
+//class food that extends the product class
 public class Food extends Product{
+    //attributes specific to the food category
     private LocalDate expirationDate;
+    //constructor
     public Food(int barcode, String productName, String brand, double price, LocalDate expirationDate) {
         super(barcode, productName, brand, price);
         this.expirationDate = expirationDate;

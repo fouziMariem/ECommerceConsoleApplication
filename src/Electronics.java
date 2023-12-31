@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
+//class Electronics that extends the product class
 public class Electronics extends Product{
     //constructor
     public Electronics(int barcode, String productName, String brand, double price) {

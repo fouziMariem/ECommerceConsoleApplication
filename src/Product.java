@@ -1,21 +1,15 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
+//class product that has the attributes of the product and the methods that are common between the categories
 public abstract class Product {
-    //categories
-    //create
-    //read
-    //update
-    //delete
+    //attributes
     protected int barcode;
     protected String productName;
     protected String brand ;
     protected double price;
-    //protected static List<Product> allProducts = new ArrayList<>();
-
+    //constructor
     public Product(int barcode, String productName, String brand, double price) {
         this.barcode = barcode;
         this.productName = productName;
@@ -35,9 +29,6 @@ public abstract class Product {
     public void displayProduct(){
         System.out.println("Barcode :"+barcode+" Product name :"+productName+" Brand :"+brand+" Price :"+price);
     }
-
-
-    //update product and deal with the exceptions like the barcode is not an integer or the price is not a double or the product name is empty and retry if an exception is thrown
 
     //get brand of the product
     public String getBrand() {
@@ -60,6 +51,8 @@ public abstract class Product {
     public void setPrice(double price) {
         this.price = price;
     }
+    //create a new product
+
     public static Product createProduct(int barcode){
         Scanner scanner = new Scanner(System.in);
         boolean flag = true;
@@ -69,7 +62,7 @@ public abstract class Product {
         int size = 0;
         String color = "";
         String material = "";
-        LocalDate expirationDate=null;
+        LocalDate expirationDate =null;
         String author="";
         String genre="";
 
@@ -143,6 +136,7 @@ public abstract class Product {
         }
         return null;
     }
+    //update product and deal with the exceptions like the barcode is not an integer or the price is not a double or the product name is empty and retry if an exception is thrown
     public void updateProduct(){
         Scanner scanner = new Scanner(System.in);
         boolean flag = true;

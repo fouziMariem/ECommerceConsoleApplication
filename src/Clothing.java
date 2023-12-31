@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
+//class clothing that extends the Product class
 public class Clothing extends Product{
+    //attributes specific to the clothing category
     private int size;
     private String color;
     private String material;

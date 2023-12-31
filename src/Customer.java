@@ -1,23 +1,49 @@
 import java.util.Scanner;
-
+//class customer that extends the user class
 public class Customer extends User{
+    //have the same attributes as the user class
+    //constructor
     public Customer(int CIN, String userName, String password) {
 
         super(CIN,userName,password,"Customer");
     }
+    //sign in method that takes the inventory as a parameter
     public static void signIn(Inventory inventory){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("CIN :");
-        int CIN = Integer.parseInt(scanner.nextLine());
-        System.out.println("Customer name :");
-        String userName = scanner.next();
-        System.out.println("Password:");
-        String password = scanner.next();
-        User newUser= new Customer(CIN,userName,password);
-        currentUser=newUser;
-        inventory.setCurrentUser(currentUser);
+        while(true){
+            try{
+                System.out.println("CIN :");
+                int CIN = Integer.parseInt(scanner.nextLine());
+                System.out.println("Customer name :");
+                String userName = scanner.next();
+                System.out.println("Password:");
+                String password = scanner.next();
+                User newUser= new Customer(CIN,userName,password);
+                currentUser=newUser;
+                inventory.setCurrentUser(currentUser);
+                break;
+            }
+            catch(Exception e){
+                System.out.println("Invalid input please try again");
+            }
+        }
     }
     //customer menu
+    // add product to the shopping cart
+    // remove product from the shopping cart
+    // set quantity of a product in the shopping cart
+    // display all products in the shopping cart
+    // set the name of the user
+    // set the password of the user
+    // get the total price of the shopping cart
+    // display all products
+    // search by category in the inventory
+    // search by brand in the inventory
+    // search by name in the inventory
+    // search by price in the inventory
+    // view all orders
+    // checkout the shopping cart
+    // logout
     public void userMenu(Inventory inventory){
         Scanner scanner = new Scanner(System.in);
         int choice=0;
@@ -41,25 +67,50 @@ public class Customer extends User{
             choice = Integer.parseInt(scanner.nextLine());
             switch(choice){
                 case 1:
-                    System.out.println("Enter the barcode of the product");
-                    int barcode = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Enter the quantity of the product");
-                    int quantity = Integer.parseInt(scanner.nextLine());
-                    this.addProduct(barcode,quantity,inventory);
+                    while(true){
+                        try{
+                            System.out.println("Enter the barcode of the product");
+                            int barcode = Integer.parseInt(scanner.nextLine());
+                            System.out.println("Enter the quantity of the product");
+                            int quantity = Integer.parseInt(scanner.nextLine());
+                            this.addProduct(barcode,quantity,inventory);
+                            break;
+                        }
+                        catch(Exception e){
+                            System.out.println("Invalid input please try again");
+                        }
+                    }
+
                     break;
                 case 2:
-                    System.out.println("Enter the barcode of the product");
-                    barcode = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Enter the quantity of the product");
-                    quantity = Integer.parseInt(scanner.nextLine());
-                    this.removeProduct(barcode,quantity,inventory);
+                    while(true){
+                        try{
+                            System.out.println("Enter the barcode of the product");
+                            int barcode = Integer.parseInt(scanner.nextLine());
+                            System.out.println("Enter the quantity of the product");
+                            int quantity = Integer.parseInt(scanner.nextLine());
+                            this.removeProduct(barcode,quantity,inventory);
+                            break;
+                        }
+                        catch(Exception e){
+                            System.out.println("Invalid input please try again");
+                        }
+                    }
                     break;
                 case 3:
-                    System.out.println("Enter the barcode of the product");
-                    barcode = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Enter the quantity of the product");
-                    quantity = Integer.parseInt(scanner.nextLine());
-                    this.setQuantity(barcode,quantity,inventory);
+                    while(true){
+                        try{
+                            System.out.println("Enter the barcode of the product");
+                            int barcode = Integer.parseInt(scanner.nextLine());
+                            System.out.println("Enter the quantity of the product");
+                            int quantity = Integer.parseInt(scanner.nextLine());
+                            this.setQuantity(barcode,quantity,inventory);
+                            break;
+                        }
+                        catch(Exception e){
+                            System.out.println("Invalid input please try again");
+                        }
+                    }
                     break;
                 case 4:
                     this.displayCart();

@@ -1,10 +1,11 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
+//class Books that extends the product class
 public class Books extends Product{
+    //attributes specific to the books category
     private String author;
     private String genre;
     //constructor
-
     public Books(int barcode, String productName, String brand, double price, String author, String genre) {
         super(barcode, productName, brand, price);
         this.author = author;
